@@ -3,24 +3,29 @@ import './App.css';
 
 function App() {
   const [url, setUrl] = useState('');
+  const [showTabNumbers, setShowTabNumbers] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  // Load saved URL when popup opens
+  // Load saved settings when popup opens
   useEffect(() => {
-    chrome.storage.sync.get(['redirectUrl'], (result) => {
+    chrome.storage.sync.get(['redirectUrl', 'showTabNumbers'], (result) => {
       if (result.redirectUrl) {
         setUrl(result.redirectUrl);
+      }
+      if (result.showTabNumbers !== undefined) {
+        setShowTabNumbers(result.showTabNumbers);
       }
     });
   }, []);
 
   const handleSave = () => {
-    if (url) {
-      chrome.storage.sync.set({ redirectUrl: url }, () => {
-        setSaved(true);
-        setTimeout(() => setSaved(false), 2000);
-      });
-    }
+    chrome.storage.sync.set({ 
+      redirectUrl: url,
+      showTabNumbers: showTabNumbers
+    }, () => {
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    });
   };
 
   return (
@@ -34,10 +39,20 @@ function App() {
           placeholder="Enter URL to redirect to"
           className="url-input"
         />
-        <button onClick={handleSave} className="save-button">
-          Save
-        </button>
       </div>
+      <div className="toggle-group">
+        <label className="toggle-label">
+          <input
+            type="checkbox"
+            checked={showTabNumbers}
+            onChange={(e) => setShowTabNumbers(e.target.checked)}
+          />
+          <span>Show tab numbers</span>
+        </label>
+      </div>
+      <button onClick={handleSave} className="save-button">
+        Save
+      </button>
       {saved && <p className="saved-message">Settings saved!</p>}
     </div>
   );

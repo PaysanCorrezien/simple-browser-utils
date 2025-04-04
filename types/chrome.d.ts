@@ -1,3 +1,5 @@
+/// <reference types="chrome"/>
+
 declare namespace chrome {
   namespace storage {
     interface StorageArea {
@@ -10,7 +12,7 @@ declare namespace chrome {
   namespace tabs {
     interface Tab {
       id?: number;
-      url?: string;
+      title?: string;
     }
     function update(tabId: number, updateProperties: { url: string }): void;
     const onCreated: {
