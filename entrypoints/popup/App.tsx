@@ -30,30 +30,44 @@ function App() {
 
   return (
     <div className="popup-container">
-      <h2>New Tab Redirect</h2>
-      <div className="input-group">
-        <input
-          type="text"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          placeholder="Enter URL to redirect to"
-          className="url-input"
-        />
+      <div className="popup-header">
+        <h2>Tab Manager</h2>
       </div>
-      <div className="toggle-group">
-        <label className="toggle-label">
+      
+      <div className="popup-content">
+        <div className="form-group">
+          <label htmlFor="redirect-url" className="form-label">New Tab URL</label>
           <input
-            type="checkbox"
-            checked={showTabNumbers}
-            onChange={(e) => setShowTabNumbers(e.target.checked)}
+            id="redirect-url"
+            type="text"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder="https://example.com"
+            className="form-input"
           />
-          <span>Show tab numbers</span>
-        </label>
+        </div>
+        
+        <div className="form-group">
+          <div className="toggle-container">
+            <label className="toggle-label" htmlFor="show-tab-numbers">
+              <div className="toggle-switch">
+                <input
+                  id="show-tab-numbers"
+                  type="checkbox"
+                  checked={showTabNumbers}
+                  onChange={(e) => setShowTabNumbers(e.target.checked)}
+                />
+                <span className="toggle-slider"></span>
+              </div>
+              <span className="toggle-text">Show tab numbers</span>
+            </label>
+          </div>
+        </div>
+        
+        <button onClick={handleSave} className="save-button">
+          {saved ? 'Saved!' : 'Save Settings'}
+        </button>
       </div>
-      <button onClick={handleSave} className="save-button">
-        Save
-      </button>
-      {saved && <p className="saved-message">Settings saved!</p>}
     </div>
   );
 }

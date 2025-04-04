@@ -1,74 +1,98 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #54bc4ae0);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+:root {
+  /* Rose Pine color palette */
+  --rp-base: #191724;
+  --rp-surface: #1f1d2e;
+  --rp-overlay: #26233a;
+  --rp-muted: #6e6a86;
+  --rp-subtle: #908caa;
+  --rp-text: #e0def4;
+  --rp-love: #eb6f92;
+  --rp-gold: #f6c177;
+  --rp-rose: #ebbcba;
+  --rp-pine: #31748f;
+  --rp-foam: #9ccfd8;
+  --rp-iris: #c4a7e7;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-.popup-container {
-  width: 300px;
-  padding: 16px;
+body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: var(--rp-text);
+  background-color: var(--rp-base);
 }
 
-h2 {
-  margin: 0 0 16px 0;
+/* Popup container */
+.popup-container {
+  width: 320px;
+  background-color: var(--rp-surface);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  border: 1px solid var(--rp-overlay);
+}
+
+/* Header */
+.popup-header {
+  padding: 16px;
+  background-color: var(--rp-overlay);
+  border-bottom: 1px solid var(--rp-muted);
+}
+
+.popup-header h2 {
   font-size: 18px;
-  color: #333;
+  font-weight: 600;
+  color: var(--rp-text);
+  margin: 0;
 }
 
-.input-group {
-  display: flex;
-  gap: 8px;
+/* Content */
+.popup-content {
+  padding: 16px;
+}
+
+/* Form groups */
+.form-group {
   margin-bottom: 16px;
 }
 
-.url-input {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.form-label {
+  display: block;
   font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--rp-subtle);
 }
 
-.toggle-group {
-  margin-bottom: 16px;
+/* Input */
+.form-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--rp-muted);
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: var(--rp-overlay);
+  color: var(--rp-text);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--rp-pine);
+  box-shadow: 0 0 0 3px rgba(49, 116, 143, 0.2);
+}
+
+.form-input::placeholder {
+  color: var(--rp-muted);
+}
+
+/* Toggle switch */
+.toggle-container {
   display: flex;
   align-items: center;
 }
@@ -76,37 +100,84 @@ h2 {
 .toggle-label {
   display: flex;
   align-items: center;
-  gap: 8px;
   cursor: pointer;
+  user-select: none;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  margin-right: 10px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--rp-muted);
+  transition: .3s;
+  border-radius: 22px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 2px;
+  bottom: 2px;
+  background-color: var(--rp-surface);
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+  background-color: var(--rp-pine);
+}
+
+input:focus + .toggle-slider {
+  box-shadow: 0 0 1px var(--rp-pine);
+}
+
+input:checked + .toggle-slider:before {
+  transform: translateX(18px);
+}
+
+.toggle-text {
   font-size: 14px;
-  color: #333;
+  color: var(--rp-subtle);
 }
 
-.toggle-label input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-}
-
+/* Button */
 .save-button {
   width: 100%;
-  padding: 8px 16px;
-  background-color: #4CAF50;
-  color: white;
+  padding: 10px 16px;
+  background-color: var(--rp-pine);
+  color: var(--rp-text);
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  border-radius: 6px;
   font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
   transition: background-color 0.2s;
+  margin-top: 8px;
 }
 
 .save-button:hover {
-  background-color: #45a049;
+  background-color: #3a8ba8;
 }
 
-.saved-message {
-  color: #4CAF50;
-  font-size: 14px;
-  margin: 8px 0 0 0;
-  text-align: center;
+.save-button:active {
+  background-color: #2a6a7f;
 }
